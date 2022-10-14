@@ -67,7 +67,7 @@ public class AppLuckWebView {
                     if (StringUtils.contains(url, "/dist/baltan")) {
                         try {
                             //Thread.sleep(100);
-                            UnityPlayer.UnitySendMessage("AndroidWebView", "pageFinished", "");
+                            UnityPlayer.UnitySendMessage("AppLuckAndroidWebView", "pageFinished", "");
                         } catch (Exception e) {
 
                         }
