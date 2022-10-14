@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.appluck.webview_library">
+
+    <application android:usesCleartextTraffic="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+            android:name=".AppLuckPreLoadWebViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AppLuckWebViewActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>
