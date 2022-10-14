@@ -46,7 +46,7 @@ sysinfo.txt
 *.unitypackage
 
 # Jar resolver and its generated libraries
-Assets/Plugins/Android/*[.jar, .aar]
+# Assets/Plugins/Android/*[.jar, .aar]
 ProjectSettings/GvhProjectSettings.xml
 ProjectSettings/AndroidResolverDependencies.xml
 
