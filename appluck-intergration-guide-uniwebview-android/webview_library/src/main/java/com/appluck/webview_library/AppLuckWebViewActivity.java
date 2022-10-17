@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 
@@ -17,15 +19,19 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * webview activity
  */
-public class AppLuckWebViewActivity extends Activity {
+public class AppLuckWebViewActivity extends Activity implements AppLuckBaseActivity {
 
     private WebView webView;
+
+    private Button closeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_luck_web_view);
         webView = findViewById(R.id.webview);
+        closeBtn = findViewById(R.id.close_btn);
+        //webView.addJavascriptInterface(AppLuckActivityInterface.getInstance(this), "AppLuckActivityInterface");
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull WebResourceRequest request) {
@@ -64,5 +70,14 @@ public class AppLuckWebViewActivity extends Activity {
             return;
         }
         super.onBackPressed();
+    }
+
+    @Override
+    public void showClose() {
+        if(closeBtn!=null){
+            this.runOnUiThread(()->{
+                closeBtn.setVisibility(View.VISIBLE);
+            });
+        }
     }
 }

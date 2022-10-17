@@ -1,16 +1,15 @@
 package com.appluck.webview_library;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.WebView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 /**
  * 支持预加载的webview
  */
-public class AppLuckPreLoadWebViewActivity extends AppCompatActivity {
+public class AppLuckPreLoadWebViewActivity extends Activity {
 
     public static WebView webView;
 

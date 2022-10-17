@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.appluck.webview_library">
 
-    <application android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+    <application android:usesCleartextTraffic="true">
         <activity
             android:name=".AppLuckPreLoadWebViewActivity"
             android:exported="false" />

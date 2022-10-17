@@ -40,6 +40,7 @@ public class AppLuckWebView {
     public static void initPreloadWebView(String sk, String gaid) {
         UnityPlayer.currentActivity.runOnUiThread(() -> {
             final WebView webView = new WebView(UnityPlayer.currentActivity);
+            //webView.addJavascriptInterface(AppLuckActivityInterface.getInstance(UnityPlayer.currentActivity), "AppLuckActivityInterface");
             WebViewClient client = new WebViewClient() {
                 @Override
                 public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull WebResourceRequest request) {
