@@ -76,7 +76,7 @@ public class AppLuckPreLoadWebViewActivity extends Activity implements AppLuckBa
             webView.goBack();
             return;
         }
-        //super.onBackPressed();
+        super.onBackPressed();
     }
 
     @Override
