@@ -31,7 +31,22 @@ public class AppLuckWebViewActivity extends Activity implements AppLuckBaseActiv
         setContentView(R.layout.activity_app_luck_web_view);
         webView = findViewById(R.id.webview);
         closeBtn = findViewById(R.id.close_btn);
-        //webView.addJavascriptInterface(AppLuckActivityInterface.getInstance(this), "AppLuckActivityInterface");
+        closeBtn.setOnClickListener((view) -> {
+            if (webView != null) {
+                final String url = webView.getUrl();
+                if (StringUtils.contains(url, "/baltan")) {
+                    super.onBackPressed();
+                    return;
+                } else {
+                    if (webView.canGoBack()) {
+                        webView.goBack();
+                        return;
+                    }
+                }
+            }
+            super.onBackPressed();
+        });
+        webView.addJavascriptInterface(new AppLuckActivityInterface(this), "AppLuckActivityInterface");
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull WebResourceRequest request) {
@@ -69,14 +84,23 @@ public class AppLuckWebViewActivity extends Activity implements AppLuckBaseActiv
             webView.goBack();
             return;
         }
-        super.onBackPressed();
+        //super.onBackPressed();
     }
 
     @Override
-    public void showClose() {
-        if(closeBtn!=null){
-            this.runOnUiThread(()->{
+    public void closeShow() {
+        if (closeBtn != null) {
+            this.runOnUiThread(() -> {
                 closeBtn.setVisibility(View.VISIBLE);
+            });
+        }
+    }
+
+    @Override
+    public void closeHide() {
+        if (closeBtn != null) {
+            this.runOnUiThread(() -> {
+                closeBtn.setVisibility(View.INVISIBLE);
             });
         }
     }

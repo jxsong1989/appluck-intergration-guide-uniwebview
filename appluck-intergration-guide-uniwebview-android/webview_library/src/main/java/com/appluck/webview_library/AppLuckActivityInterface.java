@@ -3,22 +3,14 @@ package com.appluck.webview_library;
 import android.app.Activity;
 import android.content.Context;
 import android.webkit.JavascriptInterface;
-import android.widget.Toast;
+
+import com.unity3d.player.UnityPlayer;
 
 public class AppLuckActivityInterface {
     Context mContext;
 
-    public static AppLuckActivityInterface instance;
-
-    private AppLuckActivityInterface(Context mContext) {
+    public AppLuckActivityInterface(Context mContext) {
         this.mContext = mContext;
-    }
-
-    public static AppLuckActivityInterface getInstance(Context mContext) {
-        if (instance == null) {
-            instance = new AppLuckActivityInterface(mContext);
-        }
-        return instance;
     }
 
     /**
@@ -26,7 +18,7 @@ public class AppLuckActivityInterface {
      */
     @JavascriptInterface
     public void activityLoadSuccess() {
-        Toast.makeText(mContext, "activity load success", Toast.LENGTH_SHORT).show();
+
     }
 
     /**
@@ -36,31 +28,36 @@ public class AppLuckActivityInterface {
      */
     @JavascriptInterface
     public void activityJoin(boolean isFirst) {
-        Toast.makeText(mContext, "activity join, isFirst: " + isFirst, Toast.LENGTH_SHORT).show();
+        UnityPlayer.UnitySendMessage("AppLuckAndroidWebView", "activityJoin", isFirst + "");
     }
 
-    /**
-     * 广告点击
-     */
-    @JavascriptInterface
-    public void advertShow() {
-        Toast.makeText(mContext, "advert show", Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * 广告关闭
-     */
-    @JavascriptInterface
-    public void advertClose() {
-        Toast.makeText(mContext, "advert close", Toast.LENGTH_SHORT).show();
-    }
 
     /**
      * 广告点击
      */
     @JavascriptInterface
     public void advertClick() {
-        Toast.makeText(mContext, "advert click", Toast.LENGTH_SHORT).show();
+        UnityPlayer.UnitySendMessage("AppLuckAndroidWebView", "advertClick", "");
+    }
+
+    /**
+     * 广告点击
+     */
+    @JavascriptInterface
+    public void closeBtnHide() {
+        if (mContext instanceof AppLuckBaseActivity) {
+            ((AppLuckBaseActivity) mContext).closeHide();
+        }
+    }
+
+    /**
+     * 广告关闭
+     */
+    @JavascriptInterface
+    public void closeBtnShow() {
+        if (mContext instanceof AppLuckBaseActivity) {
+            ((AppLuckBaseActivity) mContext).closeShow();
+        }
     }
 
     /**

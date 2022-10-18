@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
     </WebView>
 
     <Button
@@ -22,10 +21,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/close"
-        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
-        tools:visibility="invisible" />
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void OnPageFinished();
+public delegate void OnActivityJoin(bool isFirst);
+public delegate void OnAdvertClick();
 public class AppLuckAndroidWebView : MonoBehaviour
 {
     AndroidJavaObject aObject;
@@ -45,11 +48,22 @@ public class AppLuckAndroidWebView : MonoBehaviour
         aObject.CallStatic("initPreloadWebView", sk, gaid);
     }
 
-    public delegate void OnPageFinished();
-
     public OnPageFinished onPageFinished;
+
+    public OnActivityJoin onActivityJoin;
+
+    public OnAdvertClick onAdvertClick;
 
     public void pageFinished() {
         this.onPageFinished();
+    }
+
+    public void activityJoin(string isFirst) {
+
+        this.onActivityJoin(bool.Parse(isFirst));
+    }
+
+    public void advertClick() {
+        this.onAdvertClick();
     }
 }

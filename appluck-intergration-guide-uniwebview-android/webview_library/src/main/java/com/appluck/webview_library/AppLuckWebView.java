@@ -38,9 +38,13 @@ public class AppLuckWebView {
     }
 
     public static void initPreloadWebView(String sk, String gaid) {
+        if (AppLuckPreLoadWebViewActivity.getWebView() != null) {
+            return;
+        }
         UnityPlayer.currentActivity.runOnUiThread(() -> {
             final WebView webView = new WebView(UnityPlayer.currentActivity);
-            //webView.addJavascriptInterface(AppLuckActivityInterface.getInstance(UnityPlayer.currentActivity), "AppLuckActivityInterface");
+            AppLuckPreLoadWebViewActivity.setAppLuckActivityInterface(new AppLuckActivityInterface(UnityPlayer.currentActivity));
+            webView.addJavascriptInterface(AppLuckPreLoadWebViewActivity.getAppLuckActivityInterface(), "AppLuckActivityInterface");
             WebViewClient client = new WebViewClient() {
                 @Override
                 public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull WebResourceRequest request) {
@@ -65,7 +69,7 @@ public class AppLuckWebView {
                         return;
                     }
                     //目标页面加载完成后展示组件
-                    if (StringUtils.contains(url, "/dist/baltan")) {
+                    if (StringUtils.contains(url, "/baltan")) {
                         try {
                             //Thread.sleep(100);
                             UnityPlayer.UnitySendMessage("AppLuckAndroidWebView", "pageFinished", "");
@@ -76,13 +80,10 @@ public class AppLuckWebView {
                 }
             };
 
-            DownloadListener downloadListener = new DownloadListener() {
-                @Override
-                public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-                    Uri uri = Uri.parse(url);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    UnityPlayer.currentActivity.getApplicationContext().startActivity(intent);
-                }
+            DownloadListener downloadListener = (url, userAgent, contentDisposition, mimetype, contentLength) -> {
+                Uri uri = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                UnityPlayer.currentActivity.getApplicationContext().startActivity(intent);
             };
             webView.setWebViewClient(client);
             webView.setDownloadListener(downloadListener);
@@ -90,7 +91,7 @@ public class AppLuckWebView {
             webSettings.setJavaScriptEnabled(true); // 允许javascript执行
             webSettings.setDomStorageEnabled(true);// 打开本地缓存提供JS调用,至关重要，开启DOM缓存，开启LocalStorage存储
             webView.loadUrl(String.format(PLACEMENT_URL, sk, gaid));
-            AppLuckPreLoadWebViewActivity.webView = webView;
+            AppLuckPreLoadWebViewActivity.setWebView(webView);
         });
     }
 }
